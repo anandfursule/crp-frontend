@@ -14,7 +14,8 @@ async function getEnquiries() {
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-[390px] h-[721px] p-4 flex-col justify-start items-center gap-4 inline-flex">
+      <div className="w-[390px] h-auto p-4 flex-col justify-start items-center gap-4 inline-flex">
+
         <CompanyNav />
         <QtDetails />
         <ContactDetails />
@@ -24,12 +25,13 @@ export default function Home() {
           <div className="self-stretch grow shrink basis-0 px-6 py-2.5 justify-center items-center gap-2 inline-flex">
             <div className="text-center text-white text-sm font-medium font-sans leading-tight tracking-tight">
               Book Now
-            </div>
+              </div>
           </div>
         </div>
+
       </div>
     </main>
-  )
+  );
 }
 
 
@@ -46,21 +48,21 @@ export function CompanyNav(){
 }
 
 export function QtDetails(){
-return(
-  <div className="self-stretch h-11 flex-col justify-start items-center gap-1 flex">
-    <div className="self-stretch justify-between items-start inline-flex">
-      <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">Quotation No.</div>
-      <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">BH27784-977</div>
+  return(
+    <div className="self-stretch h-11 flex-col justify-start items-center gap-1 flex">
+      <div className="self-stretch justify-between items-start inline-flex">
+        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">Quotation No.</div>
+        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">BH27784-977</div>
+      </div>
+      <div className="self-stretch justify-between items-start inline-flex">
+          <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
+            Date
+          </div>
+          <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
+            23 Sept 2023</div>
+      </div>
     </div>
-    <div className="self-stretch justify-between items-start inline-flex">
-        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
-          Date
-        </div>
-        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
-          23 Sept 2023</div>
-    </div>
-  </div>
-);
+  );
 }
 
 export function ContactDetails(){
