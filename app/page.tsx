@@ -1,4 +1,15 @@
 import Image from 'next/image'
+import { createDirectus } from '@directus/sdk';
+import { rest } from '@directus/sdk/rest';
+
+import directus from 'lib/directus';
+import { readItems } from '@directus/sdk/rest';
+
+async function getEnquiries() {
+	return directus.request(readItems('Enquiries', {
+    fields: ['vehicle'],
+  }));
+}
 
 export default function Home() {
   return (
@@ -8,7 +19,7 @@ export default function Home() {
         <QtDetails />
         <ContactDetails />
         <BikeDetails />
-
+  
         <div className="self-stretch h-10 bg-sky-700 rounded-[100px] flex-col justify-center items-center gap-2 flex">
           <div className="self-stretch grow shrink basis-0 px-6 py-2.5 justify-center items-center gap-2 inline-flex">
             <div className="text-center text-white text-sm font-medium font-sans leading-tight tracking-tight">
