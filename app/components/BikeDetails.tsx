@@ -1,6 +1,6 @@
-import { vehiDetails } from "../quotes/[slug]/page";
+//import { vehiDetails } from "../quotes/[slug]/page";
 
-export function BikeDetails({vehi}: vehiDetails){
+export function BikeDetails({vehi}: any){
     const total = parseFloat(vehi.insurance_amount) + parseFloat(vehi.other_charges) + parseFloat(vehi.accessories_amount) + parseFloat(vehi.registration_charges) + parseFloat(vehi.price) - parseFloat(vehi.offers_discounts);
     console.log("Price > "+total);
   return(
