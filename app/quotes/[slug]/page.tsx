@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
-import directus from '../../lib/directus';
+import directus from '../../../lib/directus';
 import { readItem } from '@directus/sdk/rest';
 
-import { CompanyBanner } from '../components/CompnayBanner';
-import { QtDetails } from '../components/QtDetails';
-import { ContactDetails } from '../components/ContactDetails';
-import { BikeDetails } from '../components/BikeDetails';
+import { CompanyBanner } from '../../components/CompnayBanner';
+import { QtDetails } from '../../components/QtDetails';
+import { ContactDetails } from '../../components/ContactDetails';
+import { BikeDetails } from '../../components/BikeDetails';
 
 async function getPage(slug: any) {
 	try{
