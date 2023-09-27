@@ -1,25 +1,37 @@
-import Image from 'next/image'
-import { createDirectus } from '@directus/sdk';
-import { rest } from '@directus/sdk/rest';
+import directus from '../lib/directus';
+import { readItem } from '@directus/sdk/rest';
 
-import directus from 'lib/directus';
-import { readItems } from '@directus/sdk/rest';
-
-async function getEnquiries() {
-	return directus.request(readItems('Enquiries', {
-    fields: ['vehicle'],
-  }));
+async function getGivenEnq(enqVal: any){
+  try{
+    const result = await directus.request(
+      readItem('Enquiries', enqVal, {
+        fields: ['*', '*.*']
+      })
+    )
+    return result;
+  } catch(error){
+    console.log('error');
+  }
+  
 }
 
-export default function Home() {
+export default async function Home() {
+  const retVal = await getGivenEnq(1);
+  const vehi = retVal?.vehicle;
+  const cust = retVal?.customer;
+  
+  //<pre>{JSON.stringify(retVal, null, 4)}</pre>
+
   return (
+    
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+
       <div className="w-[390px] h-auto p-4 flex-col justify-start items-center gap-4 inline-flex">
 
         <CompanyNav />
-        <QtDetails />
-        <ContactDetails />
-        <BikeDetails />
+        <QtDetails retVal={retVal}/>
+        <ContactDetails cust={cust}/>
+        <BikeDetails vehi={vehi}/>
   
         <div className="self-stretch h-10 bg-sky-700 rounded-[100px] flex-col justify-center items-center gap-2 flex">
           <div className="self-stretch grow shrink basis-0 px-6 py-2.5 justify-center items-center gap-2 inline-flex">
@@ -47,30 +59,33 @@ export function CompanyNav(){
   );
 }
 
-export function QtDetails(){
+export function QtDetails({retVal}){
   return(
     <div className="self-stretch h-11 flex-col justify-start items-center gap-1 flex">
       <div className="self-stretch justify-between items-start inline-flex">
         <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">Quotation No.</div>
-        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">BH27784-977</div>
+        <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">{retVal.id}</div>
       </div>
       <div className="self-stretch justify-between items-start inline-flex">
           <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
             Date
           </div>
           <div className="text-black text-sm font-medium font-sans leading-tight tracking-tight">
-            23 Sept 2023</div>
+            {retVal.date_created}</div>
       </div>
     </div>
   );
 }
 
-export function ContactDetails(){
+export function ContactDetails({cust}){
   return(
     <div className="self-stretch p-4 rounded-xl border border-blue-200 justify-start items-center gap-4 inline-flex">
       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
         <div className="text-slate-900 text-xs font-semibold font-sans leading-none tracking-wide">Customer details: </div>
-        <div className="text-slate-900 text-sm font-medium font-sans leading-tight tracking-tight">Anand Jain<br/>Cidco, Aurangabad<br/>+91 82828 28282</div>
+        <div className="text-slate-900 text-sm font-medium font-sans leading-tight tracking-tight">
+          {cust.name}<br/>
+          {cust.address}<br/>
+          {cust.whatsapp_number}</div>
       </div>
       <div className="grow shrink basis-0 flex-col justify-start items-start inline-flex">
         <div className="text-slate-900 text-xs font-semibold font-sans leading-none tracking-wide">Dealer details: </div>
@@ -80,7 +95,7 @@ export function ContactDetails(){
   );
 }
 
-export function BikeDetails(){
+export function BikeDetails({vehi}){
   return(
     <div className="self-stretch h-[392px] flex-col justify-start items-center gap-4 flex">
       <div className="self-stretch h-[392px] rounded-xl border border-blue-200 flex-col justify-start items-center flex">
@@ -88,10 +103,10 @@ export function BikeDetails(){
           <img className="w-40 h-40" src="https://via.placeholder.com/160x160" />
           <div className="self-stretch px-4 justify-between items-start inline-flex">
             <div className="text-black text-sm font-normal font-sans leading-tight tracking-tight">
-              Xtreme 160R 4V
+              {vehi.model_name}
             </div>
             <div className="text-black text-sm font-normal font-sans leading-tight tracking-tight">
-              ₹ 136500
+              ₹ {vehi.price}
             </div>
           </div>
           <div className="self-stretch px-4 justify-between items-start inline-flex">
