@@ -1,4 +1,4 @@
-import { vehiDetails } from "../[slug]/page";
+import { vehiDetails } from "../quotes/[slug]/page";
 
 export function BikeDetails({vehi}: vehiDetails){
     const total = parseFloat(vehi.insurance_amount) + parseFloat(vehi.other_charges) + parseFloat(vehi.accessories_amount) + parseFloat(vehi.registration_charges) + parseFloat(vehi.price) - parseFloat(vehi.offers_discounts);
