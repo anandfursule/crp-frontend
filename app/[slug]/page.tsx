@@ -21,11 +21,34 @@ async function getPage(slug: any) {
       }
 }
 
+export type vehiDetails = {
+  insurance_amount: number,
+  other_charges: number,
+  accessories_amount: number,
+  offers_discounts: number,
+  registration_charges: number,
+  vehicle_base_price: number,
+  model_name: string,
+  price: number,
+}; 
+
 export default async function Home({params} : any) {
 //const retVal = await getGivenEnq(1);
 const retVal = await getPage(params.slug)
 const vehi = retVal?.vehicle;
 const cust = retVal?.customer;
+const vDetails: vehiDetails = {
+  insurance_amount: retVal.insurance_amount,
+  other_charges: retVal.other_charges,
+  accessories_amount: retVal.accessories_amount,
+  offers_discounts: retVal.offers_discounts,
+  registration_charges: retVal.registration_charges,
+  vehicle_base_price: retVal.vehicle_base_price,
+  model_name: vehi.model_name,
+  price: vehi.price,
+};
+
+console.log(" >> other bike chares > "+JSON.stringify(vDetails));
 
 //<pre>{JSON.stringify(retVal, null, 4)}</pre>
 
@@ -36,7 +59,7 @@ return (
         <CompanyBanner />
         <QtDetails retVal={retVal}/>
         <ContactDetails cust={cust}/>
-        <BikeDetails vehi={vehi}/>
+        <BikeDetails vehi={vDetails}/>
 
         <div className="self-stretch h-10 bg-sky-700 rounded-[100px] flex-col justify-center items-center gap-2 flex">
         <div className="self-stretch grow shrink basis-0 px-6 py-2.5 justify-center items-center gap-2 inline-flex">
