@@ -28,7 +28,7 @@ return (
     
 <main className="flex min-h-screen flex-col items-center justify-between p-24">
     <div className="w-[390px] h-auto p-4 flex-col justify-start items-center gap-4 inline-flex">
-        <CompanyNav />
+        <CompanyBanner />
         <QtDetails retVal={retVal}/>
         <ContactDetails cust={cust}/>
         <BikeDetails vehi={vehi}/>
