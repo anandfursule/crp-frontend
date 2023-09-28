@@ -7,10 +7,10 @@ import { QtDetails } from '../../components/QtDetails';
 import { ContactDetails } from '../../components/ContactDetails';
 import { BikeDetails } from '../../components/BikeDetails';
 
-async function getPage(slug: any) {
+async function getPage(id: any) {
 	try{
         const result = await directus.request(
-          readItem('Enquiries', slug, {
+          readItem('Enquiries', id, {
             fields: ['*', '*.*']
           })
         )
